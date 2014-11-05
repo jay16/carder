@@ -1,0 +1,9 @@
+127.0.0.1 - - [05/Nov/2014 10:45:24] "GET /account/store HTTP/1.1" 404 4234 0.0201
+127.0.0.1 - - [05/Nov/2014 10:45:27] "GET / HTTP/1.1" 200 2677 0.0147
+127.0.0.1 - - [05/Nov/2014 10:45:27] "GET /javascripts/js_utils.js HTTP/1.1" 200 1414 0.0012
+127.0.0.1 - - [05/Nov/2014 10:45:27] "GET /javascripts/application.js HTTP/1.1" 200 4769 0.0013
+127.0.0.1 - - [05/Nov/2014 10:45:27] "GET /javascripts/jquery_sinatra.js HTTP/1.1" 200 548 0.0012
+127.0.0.1 - - [05/Nov/2014 10:45:36] "GET /user/login HTTP/1.1" 200 3841 0.0126
+127.0.0.1 - - [05/Nov/2014 10:45:36] "GET /javascripts/user_login.js HTTP/1.1" 200 2131 0.0008
+127.0.0.1 - - [05/Nov/2014 10:45:36] "GET /javascripts/bootstrapValidator.js HTTP/1.1" 200 322706 0.0013
+127.0.0.1 - - [05/Nov/2014 10:51:27] "GET /user/login HTTP/1.1" 200 3841 0.0121

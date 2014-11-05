@@ -1,0 +1,31 @@
+default: &default
+  admins: "admin@intfocus.com"
+  domain: "http://mailhok.com"
+  admins: "jay_li@intfocus.com;albert_li@intfocus.com"
+  regexp:
+    order: "^ppc\\d+u\\d+o[a-zA-Z]{3}$"
+    order_item: "^ppc\\d+u\\d+o\\d+i[a-zA-Z]{3}$"
+  website:
+    title: "MailHok"
+    subtitle: "MailHok"
+    slogan: "MailHok"
+    favicon: "/images/favicon.ico"
+  api:
+    v1:
+      url: "http://mailhok.solife.us/track"
+  alipay:
+    pid: '2088412481686716' # replace with your own
+    secret: 'p36fbudrydlvde32agr2xpqf6m8fk3nb'
+    seller_email: "aichun.sha@wohecha.cn" # your alipay acount that you used to reigister the app
+    return_url: "/transactions/done"
+    notify_url: "/transactions/notify"
+
+production:
+  <<: *default
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  default_password: ''
