@@ -17,8 +17,8 @@ gem "dm-validations", "~>1.2.0"
 gem "dm-timestamps", "~>1.2.0"
 gem "dm-sqlite-adapter", "~>1.2.0"
 
-gem "json"
 #assets
+gem "json"
 gem "haml", "~> 4.0.5"
 gem "sass", "~>3.3.7"
 gem "therubyracer", "~>0.12.1"
@@ -33,17 +33,8 @@ gem "settingslogic", "~>2.0.9"
 #rake stats
 gem "code_statistics"
 
-gem "alipay_dualfun", :github => "happypeter/alipay_dualfun"
-
 # for erb operation
 gem "tilt", "~>1.4.1"
-
-
-# for octopress command
-group :development do
-  gem 'stringex', '~> 1.4.0'
-  gem 'liquid', '~> 2.3.0'
-end
 
 group :test do
   gem "rack-test", "~>0.6.2"

@@ -21,15 +21,12 @@ module Sinatra
       def text?
         @msg_type == "text"
       end
-
       def music?
         @msg_type == "music"
       end
-
       def news?
         @msg_type == "news"
       end
-
       def image?
         @msg_type == "image"
       end
@@ -39,7 +36,6 @@ module Sinatra
       def link?
         @msg_type == "link"
       end
-
       def event?
         @msg_type == "event"
       end
@@ -53,7 +49,7 @@ module Sinatra
                   :pic_url,
                   :title, :description, :url,
                   :location_y, :location_x, :scale, :label,
-                  :event, :latitude, :precision, :foobar
+                  :event, :latitude, :precision
       def initialize(raw_message)
         if raw_message.instance_of?(StringIO)
           @raw_message    = raw_message.string
@@ -75,22 +71,22 @@ module Sinatra
       end
       def handler
         if text?
-          @content          = @raw_message.scan(/<Content><!\[CDATA\[(.*)\]\]><\/Content>/).flatten.join
+          @content       = @raw_message.scan(/<Content><!\[CDATA\[(.*)\]\]><\/Content>/).flatten.join
         elsif image?
-          @pic_url          = @raw_message.scan(/<PicUrl><!\[CDATA\[(.*)\]><\/PicUrl>/).flatten.join
+          @pic_url       = @raw_message.scan(/<PicUrl><!\[CDATA\[(.*)\]><\/PicUrl>/).flatten.join
         elsif location?
-          @location_x       = @raw_message.scan(/<Location_X>(.*)<\/Location_X>/).flatten.join
-          @location_y       = @raw_message.scan(/<Location_Y>(.*)<\/Location_Y>/).flatten.join
-          @scale            = @raw_message.scan(/<Scale>(\d+)<\/Scale>/).flatten.join
-          @label            = @raw_message.scan(/<Label><!\[CDATA\[(.*)\]\]><\/Label>/).flatten.join
+          @location_x    = @raw_message.scan(/<Location_X>(.*)<\/Location_X>/).flatten.join
+          @location_y    = @raw_message.scan(/<Location_Y>(.*)<\/Location_Y>/).flatten.join
+          @scale         = @raw_message.scan(/<Scale>(\d+)<\/Scale>/).flatten.join
+          @label         = @raw_message.scan(/<Label><!\[CDATA\[(.*)\]\]><\/Label>/).flatten.join
         elsif link?
-          @title            = @raw_message.scan(/<Title><!\[CDATA\[(.*)\]\]><\/Title>/).flatten.join
-          @description      = @raw_message.scan(/<Description><!\[CDATA\[(.*)\]\]><\/Description>/).flatten.join
-          @url              = @raw_message.scan(/<Url><!\[CDATA\[(.*)\]\]><\/Url>/).flatten.join
+          @title         = @raw_message.scan(/<Title><!\[CDATA\[(.*)\]\]><\/Title>/).flatten.join
+          @description   = @raw_message.scan(/<Description><!\[CDATA\[(.*)\]\]><\/Description>/).flatten.join
+          @url           = @raw_message.scan(/<Url><!\[CDATA\[(.*)\]\]><\/Url>/).flatten.join
         elsif event?
-          @event            = @raw_message.scan(/<Event><!\[CDATA\[(.*)\]\]><\/Event>/).flatten.join
-          @latitude         = @raw_message.scan(/<Latitude>(.*)<\/Latitude>/).flatten.join
-          @precision        = @raw_message.scan(/<Precision>(.*)<\/Precision>/).flatten.join
+          @event         = @raw_message.scan(/<Event><!\[CDATA\[(.*)\]\]><\/Event>/).flatten.join
+          @latitude      = @raw_message.scan(/<Latitude>(.*)<\/Latitude>/).flatten.join
+          @precision     = @raw_message.scan(/<Precision>(.*)<\/Precision>/).flatten.join
         else
           raise TypeError
         end

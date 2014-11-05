@@ -5,6 +5,7 @@ class HomeController < ApplicationController
   # root page
   get "/" do
     redirect "/account" if current_user
+    @weixins = Weixin.all
 
     haml :index, layout: :"../layouts/layout"
   end

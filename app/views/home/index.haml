@@ -1,1 +1,25 @@
-page index
+.row.page-header
+  %h1 微信消息
+
+.row
+  %table.table.table-condensed.table-striped
+    %thead
+      %tr
+        %th robot
+        %th user
+        %th msg_type
+        %th msg_id
+        %th create_time
+        %th content
+        %th pic_url
+    %tbody
+      - @weixins.each do |weixin|
+        %tr
+          %td= weixin.robot
+          %td= weixin.user
+          %td= weixin.msg_type
+          %td= weixin.msg_id
+          %td= weixin.create_time
+          %td= weixin.content
+          %td= weixin.pic_url
+

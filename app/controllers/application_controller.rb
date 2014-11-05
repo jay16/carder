@@ -4,7 +4,12 @@ require 'digest/md5'
 require "json"
 class ApplicationController < Sinatra::Base
   before do
-    print_format_logger(params)
+    begin
+      print_format_logger
+    rescue => e
+      puts e.message
+      puts request.body
+    end
   end
 
   register Sinatra::Reloader
@@ -13,7 +18,6 @@ class ApplicationController < Sinatra::Base
   # register Sinatra::Auth
 
   helpers ApplicationHelper
-  helpers TransactionsHelper
   helpers HomeHelper
   helpers Sinatra::FormHelpers
   
@@ -83,16 +87,25 @@ class ApplicationController < Sinatra::Base
     return errors
   end
 
-  def print_format_logger(params)
+  def print_format_logger
     hash = params || {}
     info = {:ip => remote_ip, :browser => remote_browser}
-    if not hash.empty? 
-      model = grep_params_model(hash)
-      hash[model] = hash.fetch(model).merge(info) if model
-    end
+    #if not hash.empty? 
+    #  model = grep_params_model(hash)
+    #  hash[model] = hash.fetch(model).merge(info) if model
+    #end
     params = hash.merge(info)
-    puts %Q(\n\n%s "%s" for %s at %s) % [request.request_method, request.path, request.ip, Time.now.to_s]
-    puts %Q(Parameters: %s\n\n) % params.to_s
+    puts "\n\n"
+    puts %Q(%s "%s" for %s at %s) % [request.request_method, request.path, request.ip, Time.now.to_s]
+    puts %Q(Parameters:\n %s) % params.to_s
+    body = request.body
+    body = case body
+    when StringIO then body.string
+    when Tempfile then body.read
+    else body.to_str
+    end
+    puts %Q(Request.body:\n %s) % body
+    puts "\n\n"
   end
 
   def grep_params_model(hash)
@@ -107,25 +120,8 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-
   # 404 page
   not_found do
     haml :"shared/not_found", layout: :"layouts/layout", views: ENV["VIEW_PATH"]
   end
-  #private
-    def build_relation_with_items(order)
-      JSON.parse("[%s]" % order.detail).each_with_index do |item, index|
-        quantity = item.delete("quantity").to_i
-        1.upto(quantity) do |i|
-          item.merge!({ pre_paid_code: Time.now.to_f.to_s })
-          order_item = order.order_items.new(item)
-          if order_item.save
-            pre_paid_code = "%s%du%do%di%s" % ["ppc", order.user_id, order.id, order_item.id, sample_3_alpha]
-            order_item.update(:pre_paid_code => pre_paid_code)
-          else
-            puts "failed to save order_item: %s" % order_item.errors.inspect
-          end
-        end
-      end
-    end
 end
