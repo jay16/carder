@@ -14,9 +14,6 @@ class Carder
     property :country   , String  
     property :province  , String  
     property :city      , String  
-    property :expired_at, DateTime, :default => DateTime.now
-    property :paid_at   , String  
-    property :op        , String  # order#1 or package#1
 
     has n, :cards
     has n, :users, :through => :cards

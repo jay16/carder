@@ -73,7 +73,7 @@ module Sinatra
         if text?
           @content       = @raw_message.scan(/<Content><!\[CDATA\[(.*)\]\]><\/Content>/).flatten.join
         elsif image?
-          @pic_url       = @raw_message.scan(/<PicUrl><!\[CDATA\[(.*)\]><\/PicUrl>/).flatten.join
+          @pic_url       = @raw_message.scan(/<PicUrl><!\[CDATA\[(.*)\]\]><\/PicUrl>/).flatten.join
         elsif location?
           @location_x    = @raw_message.scan(/<Location_X>(.*)<\/Location_X>/).flatten.join
           @location_y    = @raw_message.scan(/<Location_Y>(.*)<\/Location_Y>/).flatten.join

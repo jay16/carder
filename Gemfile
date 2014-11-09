@@ -14,6 +14,7 @@ gem "sinatra-flash"
 gem "dm-core", "~>1.2.1"
 gem "dm-migrations", "~>1.2.0"
 gem "dm-validations", "~>1.2.0"
+gem "dm-aggregates", "~>1.2.0"
 gem "dm-timestamps", "~>1.2.0"
 gem "dm-sqlite-adapter", "~>1.2.0"
 

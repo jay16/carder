@@ -7,7 +7,7 @@ class ActionLog
 
     property :id        , Serial 
     property :panel     , String   , :required => true
-    property :user_id   , Integer  , :required => true
+    property :user_id   , Integer 
     property :model_name, String 
     property :model_id  , Integer
     property :action    , String

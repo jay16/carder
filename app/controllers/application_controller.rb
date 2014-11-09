@@ -61,7 +61,7 @@ class ApplicationController < Sinatra::Base
   end
 
   def current_user
-    @current_user ||= User.first(email: request.cookies["cookie_user_login_state"])
+    @current_user ||= Carder.first(email: request.cookies["cookie_user_login_state"])
   end
   # action_logger
   # current_user

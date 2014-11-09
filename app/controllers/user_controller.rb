@@ -9,7 +9,7 @@ class UserController < ApplicationController
 
   # login /user/login
   post "/login" do
-    user = User.first(email: params[:user][:email])
+    user = Carder.first(email: params[:user][:email])
     if user and user.password == md5_key(params[:user][:password])
       response.set_cookie "cookie_user_login_state", {:value=> user.email, :path => "/", :max_age => "2592000"}
 
@@ -26,7 +26,7 @@ class UserController < ApplicationController
   # register page
   # get /user/register
   get "/register" do
-    @user ||= User.new
+    @user ||= Carder.new
 
     haml :register, layout: :"../layouts/layout"
   end
@@ -38,7 +38,7 @@ class UserController < ApplicationController
   # post /user/register
   post "/register" do
     params[:user][:password] = md5_key(params[:user][:password])
-    user = User.new(params[:user])
+    user = Carder.new(params[:user])
 
     if user.save
       flash[:success] = "hi %s, 注册成功，请登陆..." % user.email
@@ -61,7 +61,7 @@ class UserController < ApplicationController
   end
 
   post "/check_email_exist" do
-    user = User.first(email: params[:user][:email])
+    user = Carder.first(email: params[:user][:email])
     res  = { valid: user.nil? }.to_json
     content_type "application/json"
     body res

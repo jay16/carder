@@ -25,7 +25,11 @@ bundle exec thin start
 
 ### TODO
 
-	1. 支付宝支付
+	[x]. 支付宝支付
+  []. WeixinRobot添加处理消息类型#video/music...
+  []. WeixinRobot Xml自定义类处理，替换字符串处理.
+  []. ReplyRobot各消息类型处理.
+
 	
 ## 坑汇总
 
@@ -168,3 +172,7 @@ bundle exec thin start
 4. 2014/11/03
 
   1. rspec 测试home/api#version1
+
+5. 2014/11/09
+
+  1. Sinatra::ReplyRobot

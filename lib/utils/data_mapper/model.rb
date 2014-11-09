@@ -68,6 +68,20 @@ module Utils
               hash.merge!({ "%s" % property => self.send(property) })
             end
         end
+        # ´òÓ¡±£´æ×´Ì¬
+        # TODO print Colorfully
+        def save_with_logger
+          _template = "\n\nModel - %s saved" % self.class.name
+          if self.save
+            puts "%s successfully." % _template
+          else
+            puts "%s failed:" % _template
+            self.errors.each_pair do |key, value|
+              puts "%-15s => %s" % [key, value]
+            end
+          end
+          puts "\n\n"
+        end
       end
 
       module ClassMethods

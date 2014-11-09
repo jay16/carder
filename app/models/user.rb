@@ -7,9 +7,11 @@ class User
     include Utils::ActionLogger
 
     property :id  , Serial 
+    # 微信名称
     property :uid , String, :required => true, :unique => true
 
-    has n, :cards   # 名片
+    has n, :messages # 微信消息
+    has n, :cards    # 名片#微信消息类型为image
     # 录入名片的转家
     has n, :carders, :through => :cards 
 
@@ -17,9 +19,6 @@ class User
       @is_admin ||= Settings.admins.split(/;/).include?(self.email)
     end
 
-    after :create do |obj|
-      action_logger(obj, "create", obj.to_params)
-    end
     # instance methods
     def human_name
       "微信用户"

@@ -1,15 +1,15 @@
 #encoding: utf-8
 require "model-base"
-class Card# 名片
+class Card # 微信消息类型为image#名片
     include DataMapper::Resource
     include Utils::DataMapper::Model
     extend  Utils::DataMapper::Model
     include Utils::ActionLogger
 
     property :id       , Serial 
-    property :pic_url  , Text   , :required => true, :unique => true
+    property :pic_url  , Text   , :required => true#, :unique => true
     # user's cards中的index
-    property :index    , String , :required => true
+    property :index    , Integer 
     # 别名
     property :alias    , String
     # 用户对名片录入的评分
@@ -24,7 +24,9 @@ class Card# 名片
 
     # hook
     after :create do |obj|
-      action_logger(obj, "create", obj.to_params)
+      # 名片ID#index自增
+      index = obj.class.max(:index, :conditions => ["user_id=?", obj.user_id]) || 0
+      obj.update(:index => index+1)
     end
 
     # instance methods
