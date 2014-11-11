@@ -108,6 +108,7 @@ class ApplicationController < Sinatra::Base
     puts "\n\n"
   end
 
+  # 遍历params寻找二级hash
   def grep_params_model(hash)
     models  = %w[user package order track campaign]
     model = hash.inject([]) do |sum, _hash|

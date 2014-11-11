@@ -21,6 +21,12 @@ default: &default
     seller_email: "jay_li@solife.us" 
     return_url: "http://mailhok.solife.us/transactions/done"
     notify_url: "http://mailhok.solife.us/transactions/notify"
+  cdn:
+    qiniu:
+      bucket: "carder-cdn"
+      access_key: 'gPQo6zcUBMtLdXGWl2A3VK-zchb2LXzZhfWtWsou'
+      secret_key: 'whGyzlD1xwaT4VbyEQ81B51ROWqIPTSlI4iXeY1-'
+      out_link: "http://carder-cdn.qiniudn.com"
 
 production:
   <<: *default

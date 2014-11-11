@@ -1,10 +1,18 @@
 module Sinatra
   module FormHelpers
     def javascript_include_tag *args
-      %Q(<script src="#{args[0]}"></script>)
+      file = args[0]
+      if ENV["ASSET_CDN"] == "true"
+        file = "%s/%s" % [Settings.cdn.qiniu.out_link, File.basename(file)]
+      end
+      %Q(<script src="#{file}"></script>)
     end
     def stylesheet_link_tag *args
-     %Q(<link href="#{args[0]}" media="screen, projection" rel="stylesheet" type="text/css">)
+      file = args[0]
+      if ENV["ASSET_CDN"] == "true"
+        file = "%s/%s" % [Settings.cdn.qiniu.out_link, File.basename(file)]
+      end
+     %Q(<link href="#{file}" media="screen, projection" rel="stylesheet" type="text/css">)
     end
     # FormHelpers are a suite of helper methods
     # built to make building forms in Sinatra
