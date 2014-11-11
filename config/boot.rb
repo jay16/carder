@@ -1,8 +1,9 @@
 require "rubygems"
 
 root_path = File.expand_path("../../", __FILE__)
-ENV["APP_NAME"] ||= "carder"
-ENV["RACK_ENV"] ||= "development"
+ENV["APP_NAME"]  ||= "carder"
+ENV["RACK_ENV"]  ||= "development"
+ENV["ASSET_CDN"] ||= "true"
 ENV["VIEW_PATH"]  = "%s/app/views" % root_path
 ENV["APP_ROOT_PATH"] = root_path
 

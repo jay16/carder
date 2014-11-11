@@ -176,3 +176,15 @@ bundle exec thin start
 5. 2014/11/09
 
   1. Sinatra::ReplyRobot
+
+6. 2014/11/12
+
+  1. assets#files可以使用cdn#qiniu, ENV["ASSET_CDN"] = "true"
+  2. assets#sass files移入assets/sass
+    
+    修改coffee/sass文件后记得编译、上传至qiniu
+
+    ````
+      bundle exec rake cs2js:compile
+      bundle exec rake cdn:qiniu
+    ````
