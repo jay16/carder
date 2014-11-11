@@ -12,19 +12,18 @@ namespace :cdn do
     key        = File.basename(local_file)
     Qiniu.establish_connection!(config)
 
-    # 已在某处调用Qiniu#establish_connection!方法
     put_policy = Qiniu::Auth::PutPolicy.new(bucket)
     uptoken = Qiniu::Auth.generate_uptoken(put_policy)
 
     code, result, response_headers = Qiniu::Storage.stat(
-        bucket,     # 存储空间
-        key         # 资源名
+        bucket,
+        key   
     )
     if code == 200
       puts "[%s] already exist in [%s] then delete..." % [key, bucket]
       code, result, response_headers = Qiniu::Storage.delete(
-          bucket,     # 存储空间
-          key         # 资源名
+          bucket,
+          key  
       )
       raise "Fail delete [%s] in [%s] with qiniu." % [key, bucket] if code != 200
     else
@@ -32,8 +31,8 @@ namespace :cdn do
     end
 
     code, result, response_headers = Qiniu::Storage.upload_with_put_policy(
-        put_policy,     # 上传策略
-        local_file,     # 本地文件名
+        put_policy,
+        local_file,
         key             # key
     )
     puts "[%s] upload successfully." % key
