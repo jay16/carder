@@ -32,12 +32,14 @@ class WeixinController < ApplicationController
     _params[:from_user_name] = _params.delete("user")
     _params[:to_user_name]   = _params.delete("robot")
 
-    @user    = User.first_or_create(uid: _params[:from_user_name])
-    @message = @user.messages.new(_params)
-    @message.save_with_logger
+    user    = User.first_or_create(uid: _params[:from_user_name])
+    message = user.messages.new(_params)
+    message.save_with_logger
+    _response = reply_robot(message)
+    message.update(response: _response)
 
-    weixin.sender(:msg_type => "text") do |msg|
-      msg.content = reply_robot(@message)
+    weixin.sender(msg_type: "text") do |msg|
+      msg.content = _response
       msg.to_xml
     end
   end
