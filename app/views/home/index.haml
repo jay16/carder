@@ -1,34 +1,9 @@
 .row.page-header
-  %h1 微信消息
+  %h1 名片转家
 
 .row
-  %table.table.table-condensed.table-striped
-    %thead
-      %tr
-        %th user
-        %th index
-        %th pic_url
-    %tbody
-      - @cards.each do |card|
-        %tr
-          %td= card.user.uid
-          %td= card.index
-          %td= card.pic_url
-.row
-  %table.table.table-condensed.table-striped
-    %thead
-      %tr
-        %th user
-        %th msg_type
-        %th create_time
-        %th content
-        %th pic_url
-    %tbody
-      - @messages.each do |message|
-        %tr
-          %td= message.from_user_name
-          %td= message.msg_type
-          %td= message.create_time
-          %td= message.content
-          %td= message.pic_url
-
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading 首页
+      .panel-body 
+        %h1 首页

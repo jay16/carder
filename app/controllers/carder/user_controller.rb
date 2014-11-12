@@ -1,44 +1,40 @@
 ﻿#encoding: utf-8 
-class UserController < ApplicationController
-  set :views, ENV["VIEW_PATH"] + "/user"
+class Carder::UserController < Carder::ApplicationController
+  set :views, ENV["VIEW_PATH"] + "/carder/user"
 
   # get /user/login
   get "/login" do
-    haml :login, layout: :"../layouts/layout"
+    haml :login, layout: :"../../layouts/layout"
   end
 
   # login /user/login
   post "/login" do
-    user = Carder.first(email: params[:user][:email])
+    user = User.first(email: params[:user][:email])
     if user and user.password == md5_key(params[:user][:password])
       response.set_cookie "cookie_user_login_state", {:value=> user.email, :path => "/", :max_age => "2592000"}
 
       flash[:success] = "登陆成功"
-      redirect request.cookies["cookie_before_login_path"] || "/account"
+      redirect request.cookies["cookie_before_login_path"] || "/carder"
     else
       response.set_cookie "cookie_user_login_state", {:value=> "", :path => "/", :max_age => "2592000"}
 
       flash[:warning] = "登陆失败"
-      redirect "/login"
+      redirect "/carder/user/login"
     end
   end
 
   # register page
   # get /user/register
   get "/register" do
-    @user ||= Carder.new
+    @user ||= User.new
 
     haml :register, layout: :"../layouts/layout"
   end
 
-  # register user
-  # 1. email format validate in view
-  # 2. password & password_confirmation
-  # 3. email uniq
   # post /user/register
   post "/register" do
     params[:user][:password] = md5_key(params[:user][:password])
-    user = Carder.new(params[:user])
+    user = User.new(params[:user])
 
     if user.save
       flash[:success] = "hi %s, 注册成功，请登陆..." % user.email
@@ -61,7 +57,7 @@ class UserController < ApplicationController
   end
 
   post "/check_email_exist" do
-    user = Carder.first(email: params[:user][:email])
+    user = User.first(email: params[:user][:email])
     res  = { valid: user.nil? }.to_json
     content_type "application/json"
     body res

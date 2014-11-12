@@ -6,15 +6,22 @@ class User
     extend  Utils::DataMapper::Model
     include Utils::ActionLogger
 
-    property :id  , Serial 
-    # 微信名称
-    property :uid,    String, :required => true, :unique => true
-    property :status, String, :default => "subscribe"
+    property :id        , Serial 
+    property :email     , String  , :required => true, :unique => true
+    property :name      , String
+    property :password  , String  , :required => true
+    property :gender    , Boolean 
+    property :country   , String  
+    property :province  , String  
+    property :city      , String  
 
-    has n, :messages # 微信消息
-    has n, :cards    # 名片#微信消息类型为image
-    # 录入名片的转家
-    has n, :carders, :through => :cards 
+    has n, :cards
+    #has n, :weixiners, :through => :cards
+
+    after :create do |obj|
+      # name default from email
+      update(name: email.split(/@/).first) if name.nil? 
+    end
 
     def admin?
       @is_admin ||= Settings.admins.split(/;/).include?(self.email)
@@ -22,6 +29,6 @@ class User
 
     # instance methods
     def human_name
-      "微信用户"
+      "名片转家"
     end
 end

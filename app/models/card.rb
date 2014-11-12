@@ -21,12 +21,11 @@ class Card # 微信消息类型为image#名片
     # 名片图片不合格原因
     property :reason   , Text
 
-    belongs_to :user  ,  :required => false
+    has 1, :card_transfer
     belongs_to :message, :required => false
-    belongs_to :carder,  :required => false
 
     # instance methods
     def human_name
-      "名片"
+      "名片#图片"
     end
 end

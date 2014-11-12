@@ -35,13 +35,12 @@ class Message # 微信消息
     property :response       , Text
 
     has 1, :card
-    belongs_to :user, :required => false
+    belongs_to :weixiner, :required => false
 
     after :save do |obj|
       if obj.msg_type == "image"
-        user = obj.user
         # 名片ID#index, 相对user自增
-        card = user.cards.new({
+        card = obj.weixiner.cards.new({
           :message_id => obj.id, 
           :pic_url    => obj.pic_url,
           :index      => user.cards.count + 1

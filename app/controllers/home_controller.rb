@@ -4,32 +4,23 @@ class HomeController < ApplicationController
 
   # root page
   get "/" do
-    redirect "/account" if current_user
-    @cards    = Card.all
-    @messages = Message.all
+    redirect "/carder" if current_user
 
     haml :index, layout: :"../layouts/layout"
   end
 
-  get "/store" do
-    redirect "/account/store" if current_user
-    @packages = Package.onsale
-
-    haml :store, layout: :"../layouts/layout"
-  end
-
   # redirect to cpanel
   get "/admin" do
-    redirect "/account"
+    redirect "/carder"
   end
 
   # redirect
   # login
   get "/login" do
-    redirect "/user/login"
+    redirect "/carder/user/login"
   end
   # register
   get "/register" do
-    redirect "/user/register"
+    redirect "/carder/user/register"
   end
 end

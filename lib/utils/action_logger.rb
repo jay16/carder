@@ -20,7 +20,7 @@ module Utils
         }.fetch(action, action)
 
         user = case model.human_name
-         when "用户" then model
+         when "名片转家" then model
          when "商品" then model.order.user
          else model.user
          end
