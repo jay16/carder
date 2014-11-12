@@ -1,4 +1,4 @@
-# [MailHok](http://mailhok.solife.us)
+# [名片转家](http://carder.solife.us)
 
 ## 启动服务
 
@@ -8,12 +8,6 @@ bundle exec thin start
 ````
 
 ## 功能说明 
-
-### controllers
-
-  1. account 登陆用户管理中心
-  2. cpanel 管理员管理中心
-  3. 其他为公共链接
 
 ### models
 
@@ -25,27 +19,12 @@ bundle exec thin start
 
 ### TODO
 
-	[x]. 支付宝支付
   []. WeixinRobot添加处理消息类型#video/music...
   []. WeixinRobot Xml自定义类处理，替换字符串处理.
   []. ReplyRobot各消息类型处理.
 
 	
 ## 坑汇总
-
-### 设计逻辑
-
-  1. creator_id/editor_id不可同时设置为`:required => true`
-
-    这个字段分别在创建/更新两个阶段使用，同时设置为必填，等同于两条腿互绊.
-
-  2. pre_paid_code生成不可以放在model`after :save do |model|`中
-
-    为了保证pre_paid_code的唯一性&简洁性，其中包含model#id.
-    真正的pre_paid_code生成是在save后再update.
-    如果放在`after :save do`中，并做update，会无限循环下去.
-
-
 ### 技术相关
 
   1. jquery#bootstrapValidator
@@ -157,27 +136,11 @@ bundle exec thin start
 
 ## 更新日志
 
-1. 2014/10/26
-
-  1. 调整功能结构，管理权限在/cpanel
-
-2. 2014/10/30
-  
-  1. DataMapper通用代码，提取放在/lib/utils/data_mapper/model.rb
-
-3. 2014/10/31
-
-  1. 解决 - 坑汇总#技术相关#4
-
-4. 2014/11/03
-
-  1. rspec 测试home/api#version1
-
-5. 2014/11/09
+1. 2014/11/09
 
   1. Sinatra::ReplyRobot
 
-6. 2014/11/12
+2. 2014/11/12
 
   1. assets#files可以使用cdn#qiniu, ENV["ASSET_CDN"] = "true"
   2. assets#sass files移入assets/sass
@@ -187,4 +150,11 @@ bundle exec thin start
     ````
       bundle exec rake cs2js:compile
       bundle exec rake cdn:qiniu
+    ````
+
+  3. git
+
+    ````
+      git rm --cached remove_file_from_cached
+      git reset --hard HEAD
     ````
