@@ -1,5 +1,12 @@
 module Sinatra
   module FormHelpers
+
+    def favicon_link_tag(file)
+      if ENV["ASSET_CDN"] == "true"
+        file = "%s/%s" % [Settings.cdn.qiniu.out_link, File.basename(file)]
+      end
+      %Q(<link href="#{file}" rel= "shortcut icon")
+    end
     def javascript_include_tag *args
       file = args[0]
       if ENV["ASSET_CDN"] == "true"

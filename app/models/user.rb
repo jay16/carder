@@ -8,7 +8,8 @@ class User
 
     property :id  , Serial 
     # 微信名称
-    property :uid , String, :required => true, :unique => true
+    property :uid,    String, :required => true, :unique => true
+    property :status, String, :default => "subscribe"
 
     has n, :messages # 微信消息
     has n, :cards    # 名片#微信消息类型为image

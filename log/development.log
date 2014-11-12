@@ -344,3 +344,17 @@
 127.0.0.1 - - [12/Nov/2014 00:48:33] "GET /fonts/glyphicons-halflings-regular.woff HTTP/1.1" 304 - 0.0003
 127.0.0.1 - - [12/Nov/2014 00:48:43] "GET /user/login HTTP/1.1" 200 4015 0.0151
 127.0.0.1 - - [12/Nov/2014 00:48:50] "GET /user/login HTTP/1.1" 200 4015 0.0122
+127.0.0.1 - - [12/Nov/2014 16:44:42] "GET / HTTP/1.1" 200 6746 0.0595
+127.0.0.1 - - [12/Nov/2014 16:52:05] "GET / HTTP/1.1" 200 6746 0.0536
+127.0.0.1 - - [12/Nov/2014 16:53:26] "POST /weixin?timestamp=1415782406&nonce=g0fyx4kjvsifx2bqmtncdyp5sealvzij&signature=f2ddd3a557146b8088d910fd938dfff9176cfd51 HTTP/1.1" 200 326 0.0323
+127.0.0.1 - - [12/Nov/2014 16:53:54] "POST /weixin?timestamp=1415782434&nonce=zzjmsqoi9xttpa7wxv1ef850fd6qyarw&signature=04fb725cd2b5002be856221a6198e361ca127673 HTTP/1.1" 200 366 0.0349
+127.0.0.1 - - [12/Nov/2014 17:02:24] "POST /weixin?timestamp=1415782944&nonce=tyrebxlkm27g6uzfvnvqzobsac5h3pkg&signature=0acebe1f2c274d13e5a0656245190044d095bc7f HTTP/1.1" 200 344 0.0394
+127.0.0.1 - - [12/Nov/2014 17:02:27] "POST /weixin?timestamp=1415782947&nonce=4xg89qtcqzkkefhrymxusoyaftc6iubr&signature=57241bb90d4b7afb7df76bd9335d1bfb63809840 HTTP/1.1" 200 313 0.0652
+127.0.0.1 - - [12/Nov/2014 17:03:40] "POST /weixin?timestamp=1415783020&nonce=7acxuhowdyzsap0g96fihxdkftmlowqi&signature=10d064232a2c4fb835fd64d537339eb0687a86d3 HTTP/1.1" 200 278 0.0510
+127.0.0.1 - - [12/Nov/2014 17:03:46] "POST /weixin?timestamp=1415783026&nonce=yzbf3fe1crpd8i6lt7whuqzjbmcrxy02&signature=bde6b4bf1a68ea33eba65ea04dd93900fcf1ac73 HTTP/1.1" 200 344 0.0342
+127.0.0.1 - - [12/Nov/2014 20:27:12] "GET / HTTP/1.1" 200 9601 0.0407
+127.0.0.1 - - [12/Nov/2014 20:27:43] "POST /weixin?timestamp=1415795263&nonce=6u9qxpyvif3kjs2la8ghwritcesmcowj&signature=1bcdbf8e3dd2c3630b3b52d13dc3a07b6a0b92e3 HTTP/1.1" 200 278 0.0668
+127.0.0.1 - - [12/Nov/2014 20:27:49] "POST /weixin?timestamp=1415795269&nonce=vuzehf36ew2ikndlshxqxryqwyl0tozp&signature=3767a01e5c6642079d1f0fe157795b386e0a363e HTTP/1.1" 200 341 0.0296
+127.0.0.1 - - [12/Nov/2014 20:27:54] "POST /weixin?timestamp=1415795274&nonce=w1onb9jm8xvzcypt6qvwg2l7h4yiktro&signature=1cb4c3df38ffe6975fc77ea06de14956df0887b2 HTTP/1.1" 200 303 0.0550
+127.0.0.1 - - [12/Nov/2014 20:29:56] "POST /weixin?timestamp=1415795396&nonce=ozsksd8lmbhiufo4j7bymdxprqx1cgvk&signature=49d49c34e4dd4a2448bf14f5524e52dc1cf34be0 HTTP/1.1" 200 303 0.0325
+127.0.0.1 - - [12/Nov/2014 20:30:23] "POST /weixin?timestamp=1415795423&nonce=y1kfv6q7yiwjpzdelcfgbdzaaxklnt0v&signature=0b5265fcf892403df68ff7f44da5dd30a2bc2b1e HTTP/1.1" 200 312 0.0382

@@ -20,10 +20,13 @@ module Sinatra
       # cq
       def cmd_query(options)
         command, index, rest = options
-        card = Card.first(index: index)
-        result = ["录入状态: %s完成." % (card.is_over ? "" : "未")]
-        result.push "录入时间: %s" % card.created_at.strftime("%Y-%m-%d %H:%M")
-        result.join("\n")
+        card = @message.user.cards.first(index: index)
+        if card
+          "录入状态: %s完成.\n" % (card.is_over ? "" : "未") + 
+          "上传时间: %s" % card.created_at.strftime("%Y-%m-%d %H:%M")
+        else
+          "未查找名片ID: %d." % index
+        end
       end
       # cl
       def cmd_list(options)
@@ -49,9 +52,10 @@ module Sinatra
       include InstanceMethods
       include CommandInstanceMethods
       attr_reader :key, :command, :raw_cmd, :exec_cmd
-      def initialize(raw_cmd, yaml)
+      def initialize(message, yaml)
+        @message  = message
         @result   = []
-        @raw_cmd  = raw_cmd
+        @raw_cmd  = message.content 
         @commands = yaml["command"]
       end
       def self.exec(raw_cmd, yaml)
@@ -65,7 +69,7 @@ module Sinatra
         if @exec_cmd
           result.push "执行命令:\n %s" % @exec_cmd 
         else
-          result.push "命令解析失败!"
+          result.push "命令无效.\n命令列表:\n"
         end
         result.push @response
         result.join("\n")
@@ -110,12 +114,16 @@ module Sinatra
       end
 
       def handler
-        "消息类型:[%s]\n" % @msg_type_hash[@message.msg_type] + 
         case @message.msg_type
-        when "text"  then Command.exec(@message.content, @yaml)
-        when "image" then "%s\n名片ID: %s\n" % [@yaml["image"], @message.card.index]
-        when "event" then @yaml["event"][@message.event]
-        else "类型为[%s],暂不支持!" % @message.msg_type
+        when "text"  then 
+          Command.exec(@message, @yaml)
+        when "image" then 
+          "%s\n名片ID: %s\n" % [@yaml["image"], @message.card.index]
+        when "event" then 
+          @message.user.update(status: @message.event)
+          @yaml["event"][@message.event]
+        else 
+          "类型为[%s],暂不支持!" % @message.msg_type
         end
       end
 
