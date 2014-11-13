@@ -39,6 +39,8 @@ gem "tilt", "~>1.4.1"
 
 group :development do
   gem "qiniu", "~>6.3.2"
+  gem "net-ssh", "~>2.9.1"
+  gem "net-scp", "~>1.2.1"
 end
 group :test do
   gem "rack-test", "~>0.6.2"

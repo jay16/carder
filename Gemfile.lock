@@ -54,6 +54,9 @@ GEM
     mime-types (1.25.1)
     minitest (5.3.4)
     multi_json (1.10.1)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.9.1)
     netrc (0.8.0)
     phantomjs (1.9.7.1)
     qiniu (6.3.2)
@@ -125,6 +128,8 @@ DEPENDENCIES
   haml (~> 4.0.5)
   jasmine (~> 2.0.2)
   json
+  net-scp (~> 1.2.1)
+  net-ssh (~> 2.9.1)
   qiniu (~> 6.3.2)
   rack-test (~> 0.6.2)
   rake (~> 10.3.2)
