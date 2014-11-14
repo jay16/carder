@@ -1,30 +1,30 @@
 event:
-  subscribe: 感谢您的关注.\n一切从上传名片开始.
-  unsubscribe: 期待您的再次关注.
+  subscribe: "感谢您的关注.\n一切从上传名片开始."
+  unsubscribe: "期待您的再次关注."
 image: "名片上传成功."
 command:
   q:
-    name: query
-    human: 查询
-    desc: 查询名片录入情况.
-    regexp: cq\s(\p{Han}|\d)+
-    usage: cq 名片ID
-    method: cmd_query
-    test: TODO - array
+    name: "query"
+    human: "查询"
+    desc: "查询名片录入情况."
+    regexp: [Cc][Qq]\s(\p{Han}|\d)+
+    usage: "cq 名片ID"
+    method: "cmd_query"
+    test: "TODO - array"
     result:
-      success: \[查询\]成功.
-      fail: \[查询\]操作失败.
+      success: "[查询]成功."
+      fail: "[查询]操作失败."
   h:
-    name: help
-    human: 帮助
-    desc: 显示命令列表
-    regexp: ch
-    usage: ch
-    method: cmd_help
-    test: TODO - array
+    name: "help"
+    human: "帮助"
+    desc: "显示命令列表"
+    regexp: "[Cc][Hh]"
+    usage: "ch"
+    method: "cmd_help"
+    test: "TODO - array"
     result:
-      success: TODO
-      fail: TODO
+      success: "TODO"
+      fail: "TODO"
 TODO:
   a:
     name: alias

@@ -12,7 +12,8 @@ class Weixiner
     property :status, String, :default => "subscribe"
 
     has n, :messages # 微信消息
-    #has n, :cards    # 名片#微信消息类型为image
+    # 名片#微信消息类型为image
+    has n, :cards, :through => :messages
     # 录入名片的转家
     #has n, :users, :through => :cards 
 

@@ -18,26 +18,11 @@ module Sinatra
       end
     end
     module MessageHelpers
-      def text?
-        @msg_type == "text"
-      end
-      def music?
-        @msg_type == "music"
-      end
-      def news?
-        @msg_type == "news"
-      end
-      def image?
-        @msg_type == "image"
-      end
-      def location?
-        @msg_type == "location"
-      end
-      def link?
-        @msg_type == "link"
-      end
-      def event?
-        @msg_type == "event"
+      methods = %w[text music news image location link event video voice]
+      methods.each do |method|
+        define_method "%s?" % method do
+          @msg_type == method
+        end
       end
     end
     class Receiver
@@ -87,6 +72,10 @@ module Sinatra
           @event         = @raw_message.scan(/<Event><!\[CDATA\[(.*)\]\]><\/Event>/).flatten.join
           @latitude      = @raw_message.scan(/<Latitude>(.*)<\/Latitude>/).flatten.join
           @precision     = @raw_message.scan(/<Precision>(.*)<\/Precision>/).flatten.join
+        elsif voice?
+          # TODO
+        elsif video?
+          # TODO
         else
           raise TypeError
         end

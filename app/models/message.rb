@@ -37,13 +37,20 @@ class Message # 微信消息
     has 1, :card
     belongs_to :weixiner, :required => false
 
-    after :save do |obj|
-      if obj.msg_type == "image"
-        # 名片ID#index, 相对user自增
-        card = obj.weixiner.cards.new({
-          :message_id => obj.id, 
-          :pic_url    => obj.pic_url,
-          :index      => user.cards.count + 1
+    after :save do |message|
+      # 名片ID#index, 相对user自增
+      if message.msg_type == "image"
+        # http://datamapper.org/docs/associations.html
+        # normal usage:
+        #   card = Card.new
+        #   message.card = card
+        #   message.save
+        # but this block call in after :save
+        # will loop without end
+        card = Card.new({
+          :message_id  => message.id,
+          :pic_url     => message.pic_url,
+          :index       => message.weixiner.cards.count + 1
         })
         card.save_with_logger
       end

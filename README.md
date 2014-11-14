@@ -7,6 +7,7 @@ bundle install
 bundle exec thin start
 ````
 
+
 ## 功能说明 
 
 ### models
@@ -19,9 +20,9 @@ bundle exec thin start
 
 ### TODO
 
-  []. WeixinRobot添加处理消息类型#video/music...
+  [x]. WeixinRobot添加处理消息类型#video/music...
   []. WeixinRobot Xml自定义类处理，替换字符串处理.
-  []. ReplyRobot各消息类型处理.
+  [x]. ReplyRobot各消息类型处理.
 
 	
 ## 坑汇总
@@ -158,3 +159,5 @@ bundle exec thin start
       git rm --cached remove_file_from_cached
       git reset --hard HEAD
     ````
+3. 2014/11/14
+

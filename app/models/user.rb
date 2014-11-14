@@ -15,7 +15,7 @@ class User
     property :province  , String  
     property :city      , String  
 
-    has n, :cards
+    has n, :card_transfers
     #has n, :weixiners, :through => :cards
 
     after :create do |obj|

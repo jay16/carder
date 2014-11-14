@@ -20,7 +20,7 @@ module Sinatra
       # cq
       def cmd_query(options)
         command, index, rest = options
-        card = @message.user.cards.first(index: index)
+        card = @message.weixiner.cards.first(index: index)
         if card
           "录入状态: %s完成.\n" % (card.is_over ? "" : "未") + 
           "上传时间: %s" % card.created_at.strftime("%Y-%m-%d %H:%M")
@@ -65,7 +65,6 @@ module Sinatra
       def handler
         @response = find_key ? parse : help
         result = []
-        result.push "输入命令:\n %s" % @raw_cmd
         if @exec_cmd
           result.push "执行命令:\n %s" % @exec_cmd 
         else
@@ -104,6 +103,8 @@ module Sinatra
         @yaml        = load_yaml(@weixin_yaml)
         @msg_type_hash = {
           "text"     => "文本",
+          "news"     => "新闻",
+          "music"    => "音乐",
           "image"    => "图片",
           "link"     => "链接",
           "video"    => "视频",
@@ -120,8 +121,12 @@ module Sinatra
         when "image" then 
           "%s\n名片ID: %s\n" % [@yaml["image"], @message.card.index]
         when "event" then 
-          @message.user.update(status: @message.event)
+          @message.weixiner.update(status: @message.event)
           @yaml["event"][@message.event]
+        when "voice" then
+          "感谢您的[%s]反馈." % @msg_type_hash["voice"]
+        when "video" then
+          "感谢您的[%s]反馈." % @msg_type_hash["video"]
         else 
           "类型为[%s],暂不支持!" % @message.msg_type
         end
