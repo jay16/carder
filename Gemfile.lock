@@ -14,6 +14,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    daemon_controller (1.2.0)
     daemons (1.1.9)
     data_objects (0.10.14)
       addressable (~> 2.1)
@@ -58,6 +59,10 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
     netrc (0.8.0)
+    passenger (4.0.53)
+      daemon_controller (>= 1.2.0)
+      rack
+      rake (>= 0.8.1)
     phantomjs (1.9.7.1)
     qiniu (6.3.2)
       json (~> 1.7)
@@ -130,6 +135,7 @@ DEPENDENCIES
   json
   net-scp (~> 1.2.1)
   net-ssh (~> 2.9.1)
+  passenger (~> 4.0.53)
   qiniu (~> 6.3.2)
   rack-test (~> 0.6.2)
   rake (~> 10.3.2)

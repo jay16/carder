@@ -25,7 +25,7 @@ gem "sass", "~>3.3.7"
 gem "therubyracer", "~>0.12.1"
 gem "coffee-script", "~>2.2.0"
 
-#gem "passenger"
+gem "passenger", "~>4.0.53"
 gem "thin", "~>1.6.2"
 gem "rake", "~>10.3.2"
 gem "settingslogic", "~>2.0.9"

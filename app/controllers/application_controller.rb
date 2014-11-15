@@ -4,12 +4,7 @@ require 'digest/md5'
 require "json"
 class ApplicationController < Sinatra::Base
   before do
-    begin
-      print_format_logger
-    rescue => e
-      puts e.message
-      puts request.body
-    end
+    print_format_logger
   end
 
   register Sinatra::Reloader
@@ -90,22 +85,16 @@ class ApplicationController < Sinatra::Base
   def print_format_logger
     hash = params || {}
     info = {:ip => remote_ip, :browser => remote_browser}
-    #if not hash.empty? 
+    #unless hash.empty? 
     #  model = grep_params_model(hash)
     #  hash[model] = hash.fetch(model).merge(info) if model
     #end
     params = hash.merge(info)
-    puts "\n\n"
+    puts "\n"
     puts %Q(%s "%s" for %s at %s) % [request.request_method, request.path, request.ip, Time.now.to_s]
     puts %Q(Parameters:\n %s) % params.to_s
-    body = request.body
-    body = case body
-    when StringIO then body.string
-    when Tempfile then body.read
-    else body.to_str
-    end
-    puts %Q(Request.body:\n %s) % body
-    puts "\n\n"
+    puts %Q(Request:\n %s) % request_body if request.body
+    puts "\n"
   end
 
   # 遍历params寻找二级hash
@@ -119,6 +108,28 @@ class ApplicationController < Sinatra::Base
     if model and models.include?(model)
       return model
     end
+  end
+
+  def request_body(body = request.body)
+    @request_body = case body
+    when StringIO then body.string
+    when Tempfile then body.read
+    else
+      # gem#passenger is ugly!
+      #     it will change the structure of REQUEST
+      #     detail at: https://github.com/phusion/passenger/blob/master/lib/phusion_passenger/utils/tee_input.rb
+      # gem#thin will ok without below code.
+      #
+      if defined?(PhusionPassenger) and body.instance_of?(PhusionPassenger::Utils::TeeInput)
+        body.read
+      else 
+        body.to_str
+      end
+    end
+  end
+
+  def print_query_sql(collection)
+    puts %Q(\nSQL:\n %s\n) % DataMapper.repository.adapter.send(:select_statement,collection.query).join(" ")
   end
 
   # 404 page

@@ -1,4 +1,5 @@
 # encoding: utf-8
+# reference:
 # https://github.com/kennx/weixin_robot/blob/master/lib/sinatra/weixin-robot.rb
 require 'sinatra/base'
 require 'digest/sha1'
@@ -36,12 +37,10 @@ module Sinatra
                   :location_y, :location_x, :scale, :label,
                   :event, :latitude, :precision
       def initialize(raw_message)
-        if raw_message.instance_of?(StringIO)
-          @raw_message    = raw_message.string
-        elsif raw_message.instance_of?(Tempfile)
-          @raw_message    = raw_message.read
+        if raw_message.instance_of?(String)
+          @raw_message = raw_message
         else
-          @raw_message    = raw_message.to_str
+          raise "raw_message should String, not %s" % raw_message.class
         end
         @robot            = @raw_message.scan(/<ToUserName><!\[CDATA\[(.*)\]\]><\/ToUserName>/).flatten.join
         @user             = @raw_message.scan(/<FromUserName><!\[CDATA\[(.*)\]\]><\/FromUserName>/).flatten.join

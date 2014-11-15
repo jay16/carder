@@ -25,7 +25,8 @@ class WeixinController < ApplicationController
   post "/" do
     return if generate_signature != params[:signature]
 
-    weixin = message_receiver(request.body)
+    raw_message = request_body(@request_body)
+    weixin = message_receiver(raw_message)
     _params = weixin.instance_variables.inject({}) do |hash, var|
       hash.merge!({var.to_s.sub(/@/,"") => weixin.instance_variable_get(var)})
     end
@@ -33,13 +34,15 @@ class WeixinController < ApplicationController
     _params[:to_user_name]   = _params.delete("robot")
 
     weixiner = Weixiner.first_or_create(uid: _params[:from_user_name])
+    print_query_sql(weixiner)
     message = weixiner.messages.new(_params)
     message.save_with_logger
+
     _response = reply_robot(message)
     message.update(response: _response)
 
     weixin.sender(msg_type: "text") do |msg|
-      msg.content = _response
+      msg.content = _response rescue "请稍候重试..."
       msg.to_xml
     end
   end
