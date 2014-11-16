@@ -25,8 +25,10 @@ gem "sass", "~>3.3.7"
 gem "therubyracer", "~>0.12.1"
 gem "coffee-script", "~>2.2.0"
 
-gem "passenger", "~>4.0.53"
-gem "thin", "~>1.6.2"
+#gem "passenger", "~>4.0.53"
+#gem "thin", "~>1.6.2"
+gem "unicorn", "~>4.8.3"
+gem "capistrano", "~>2.15.5"
 gem "rake", "~>10.3.2"
 gem "settingslogic", "~>2.0.9"
 
@@ -39,7 +41,7 @@ gem "tilt", "~>1.4.1"
 
 group :development do
   gem "qiniu", "~>6.3.2"
-  gem "net-ssh", "~>2.9.1"
+  gem "net-ssh", "~>2.7.0"
   gem "net-scp", "~>1.2.1"
 end
 group :test do

@@ -114,17 +114,17 @@ class ApplicationController < Sinatra::Base
     @request_body = case body
     when StringIO then body.string
     when Tempfile then body.read
+    # gem#passenger is ugly!
+    #     it will change the structure of REQUEST
+    #     detail at: https://github.com/phusion/passenger/blob/master/lib/phusion_passenger/utils/tee_input.rb
+    when (defined?(PhusionPassenger) and PhusionPassenger::Utils::TeeInput)
+      body.read
+    # gem#unicorn
+    #     it also change the strtucture of REQUEST
+    when Rack::Lint::InputWrapper
+      body.read
     else
-      # gem#passenger is ugly!
-      #     it will change the structure of REQUEST
-      #     detail at: https://github.com/phusion/passenger/blob/master/lib/phusion_passenger/utils/tee_input.rb
-      # gem#thin will ok without below code.
-      #
-      if defined?(PhusionPassenger) and body.instance_of?(PhusionPassenger::Utils::TeeInput)
-        body.read
-      else 
-        body.to_str
-      end
+      body.to_str
     end
   end
 
