@@ -30,7 +30,7 @@ set :rails_env, :development
 
 # Where will it be located on a server?
 set :deploy_to, "/home/work/#{application}"
-set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
+set :unicorn_conf, "#{deploy_to}/config/unicorn.rb"
 set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
 
 # Unicorn control tasks

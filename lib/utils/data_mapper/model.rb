@@ -11,10 +11,13 @@ module Utils
         base.send(:property, :updated_at,    ::DateTime)
         base.send(:property, :updated_on,    ::Date)
         base.send(:include, InstanceMethods)
-      end
 
-      def self.extended(base)
-        base.extend ClassMethods
+        class << base
+          include ClassMethods
+          [:all, :get, :first, :last].each do |method|
+            send(:alias_method_chain, method, :print_sql)
+          end
+        end
       end
 
       module InstanceMethods
@@ -85,7 +88,7 @@ module Utils
       end
 
       module ClassMethods
-        # delete status
+        # default methods to call delete status
         def normals
           all(delete_status: "normal")
         end
@@ -97,6 +100,37 @@ module Utils
         end
         def hards
           all(delete_status: "hard")
+        end
+        
+        # print query sql when call methods below.
+        #
+        # example:
+        #   users = User.all
+        #   => 
+        #   User Load (0ms) ELECT "id", "name", "email" FROM "users"
+        #   
+        [:all, :get, :first, :last].each do |method|
+          with_method, without_method = 
+            "%s_with_print_sql" % method.to_s,
+            "%s_without_print_sql" % method.to_s
+          if method_defined?(method)
+            warn "%s - already defiend!" % method
+          else
+            define_method with_method do |options|
+              _t = Time.now.to_f
+              # ==== important point!
+              #
+              #   self.send(without_mothod) 
+              #   not 
+              #   self.send(method)
+              #
+              _collection = self.send(without_method, options)
+              _sql = ::DataMapper.repository.adapter
+                .send(:select_statement,_collection.query).join(" ")
+              puts "%s Load (%dms) %s" % [self.name, ((Time.now.to_f - _t)*1000).to_i, _sql]
+              return _collection
+            end
+          end
         end
       end
     end

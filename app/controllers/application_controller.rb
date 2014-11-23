@@ -1,22 +1,19 @@
 ﻿#encoding: utf-8
-#require 'sinatra/advanced_routes'
+require "sinatra/decompile"
 require 'digest/md5'
 require "json"
+require 'sinatra/advanced_routes'
 class ApplicationController < Sinatra::Base
-  before do
-    print_format_logger
-  end
-
-  register Sinatra::Reloader
+  register Sinatra::Reloader if development?
   register Sinatra::Flash
+  register Sinatra::Decompile
   # register Sinatra::AdvancedRoutes
   # register Sinatra::Auth
-
+  
+  # helpers
   helpers ApplicationHelper
   helpers HomeHelper
   helpers Sinatra::FormHelpers
-  
-  enable :sessions, :logging, :dump_errors, :raise_errors, :static, :method_override
 
   # css/js/view配置文档
   use ImageHandler
@@ -24,6 +21,15 @@ class ApplicationController < Sinatra::Base
   use CoffeeHandler
   use AssetHandler
 
+  enable :sessions, :logging, :dump_errors, :raise_errors, :static, :method_override
+
+  before do
+    print_format_logger
+  end
+
+  #def self.inherited(subclass)
+  #  puts "new subclass: %s" % subclass.to_s if subclass
+  #end
   # global functions list
   def remote_ip
     request.ip 
@@ -95,6 +101,17 @@ class ApplicationController < Sinatra::Base
     puts %Q(Parameters:\n %s) % params.to_s
     puts %Q(Request:\n %s) % request_body if request.body
     puts "\n"
+    puts self.class.name
+    self.class.routes.each do |array|
+      verb, *array = array
+      puts "verb: %s" % verb
+      array.each do |arr|
+        puts "\tpath: %s" % arr.first
+      end
+    end
+    #@@app_routes_map.each_pair do |path, mod|
+    #  clazz = mod.split("::").inject(Object) {|o,c| o.const_get c}
+    #end
   end
 
   # 遍历params寻找二级hash

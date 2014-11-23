@@ -38,14 +38,14 @@ class Carder::UserController < Carder::ApplicationController
 
     if user.save
       flash[:success] = "hi %s, 注册成功，请登陆..." % user.email
-      redirect "/user/login"
+      redirect "/carder/user/login"
     else
       msg = ["注册失败:"]
       format_dv_errors(user).each_with_index do |hash, index|
         msg.push("%d. %s" % [index+1, hash.to_a.join(": ")])
       end
       flash[:danger] = msg.join("<br>")
-      redirect "/user/register"
+      redirect "/carder/user/register"
     end
   end
 
@@ -56,6 +56,7 @@ class Carder::UserController < Carder::ApplicationController
     redirect "/"
   end
 
+  # post /carder/user/check_email_exist
   post "/check_email_exist" do
     user = User.first(email: params[:user][:email])
     res  = { valid: user.nil? }.to_json

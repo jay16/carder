@@ -16,6 +16,7 @@ class User
     property :city      , String  
 
     has n, :card_transfers
+    has n, :cards, :through => :card_transfers
     #has n, :weixiners, :through => :cards
 
     after :create do |obj|

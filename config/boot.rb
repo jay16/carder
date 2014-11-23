@@ -3,7 +3,7 @@ require "rubygems"
 root_path = File.expand_path("../../", __FILE__)
 ENV["APP_NAME"]  ||= "carder"
 ENV["RACK_ENV"]  ||= "development"
-ENV["ASSET_CDN"] ||= "true"
+ENV["ASSET_CDN"] ||= "false"
 ENV["VIEW_PATH"]  = "%s/app/views" % root_path
 ENV["APP_ROOT_PATH"] = root_path
 
@@ -42,6 +42,7 @@ $:.unshift("%s/lib/tasks" % root_path)
   $:.unshift("%s/app/%s" % [root_path, path])
 end
 
+require "lib/utils/core_ext/module.rb"
 require "lib/utils/action_logger.rb"
 require "lib/utils/boot.rb"
 include Utils::Boot

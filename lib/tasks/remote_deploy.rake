@@ -32,6 +32,11 @@ namespace :remote do
         end
         puts "\n"
       end
+
+      remote_db_path = "%s/db/carder_development.db" % remote_root_path
+      local_db_path  = "%s/db/carder_development.db" % ENV["APP_ROOT_PATH"] 
+      File.delete(local_db_path) if File.exist?(local_db_path)
+      ssh.scp.download!(remote_db_path, local_db_path)
     end
   end
 end

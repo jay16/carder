@@ -5,10 +5,13 @@ if defined? Encoding
   Encoding.default_external = Encoding::UTF_8
   Encoding.default_internal = Encoding::UTF_8
 end
-#sinatra
+
 gem "sinatra", "~>1.4.5"
-gem "sinatra-reloader"
-gem "sinatra-flash"
+gem "sinatra-contrib", "~>1.4.2"
+gem "sinatra-flash", "~>0.3.0"
+gem "sinatra-advanced-routes", :require => "sinatra/advanced_routes"
+# This project is now part of sinatra-contrib.
+# gem "sinatra-reloader" 
 
 #db
 gem "dm-core", "~>1.2.1"

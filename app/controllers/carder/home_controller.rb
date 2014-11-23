@@ -6,10 +6,19 @@ class Carder::HomeController < Carder::ApplicationController
     authenticate!
   end
 
+  # get /carder
   get "/" do
-    @cards = current_user.cards
+    @cards_my  = current_user.cards
+    @cards_wait = Card.all(:is_over => false)
 
     haml :index, layout: :"../layouts/layout"
   end
 
+  # get /carder/workspace
+  get "/workspace" do
+    @cards = Card.all(:is_over => false)
+    @card  = @cards.first
+
+    haml :workspace, layout: :"../layouts/layout"
+  end
 end
